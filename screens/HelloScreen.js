@@ -4,6 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Tutors from './Tutors'
 import Universities from './Universities'
 import Courses from './Courses'
+import AccountScreen from './Account';
 const Tab = createBottomTabNavigator();
 
 export default function HelloScreen() {
@@ -12,6 +13,8 @@ export default function HelloScreen() {
       initialRouteName="Tutors"
       screenOptions={{
         tabBarActiveTintColor: '#042069',
+        headerTitleAlign: "center",
+        headerShadowVisible: false
       }}
     >
       <Tab.Screen
@@ -43,6 +46,17 @@ export default function HelloScreen() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="bookshelf" color={color} size={size} />
           ),  tabBarBadge: 23,
+        }}
+      />
+
+<Tab.Screen
+        name="Account"
+        component={AccountScreen}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account-lock" color={color} size={size} />
+          ), // tabBarBadge: 23,
         }}
       />
     </Tab.Navigator>

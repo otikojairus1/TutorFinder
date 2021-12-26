@@ -26,7 +26,7 @@ export default function SplashScreen({navigation}) {
             <Text fontSize="xl" >Hi! Welcome to the TutorFinder App</Text>
             <StatusBar style="auto" />
             <Button variant="outline" size="lg" colorScheme="success"
-          onPress={() => navigation.navigate('Hello')}>
+          onPress={() => navigation.navigate('signin')}>
             Get Started
         </Button>
         </View>
