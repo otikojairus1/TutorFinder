@@ -5,13 +5,15 @@ import {
   Heading,
   VStack,
   FormControl,
-  Input,
+  Input,  IconButton,
+  CloseIcon,
   Link,  Spinner,
-  Button,
+  Button,  Alert,
   HStack, useToast,
   Center, Select, CheckIcon,
   NativeBaseProvider,
 } from "native-base"
+import axios from 'axios'
 export default function SignInScreen ({ navigation }){
 
   
@@ -21,6 +23,8 @@ const [password, setPassword] = React.useState('');
 
 let [service, setService] = React.useState("")
 const [isLoading, setIsLoading] = React.useState(false);
+let [alert, setAlert] = React.useState(false);
+let [AlertMessage, setAlertMessage] = React.useState("");
   // useEffect(() => {
   //   //using a fake rest api, will replace with the voters api when done
   //   fetch('https://jsonplaceholder.typicode.com/todos/1')
@@ -40,23 +44,70 @@ const onChangeEvent2 = (event) => {
   console.log(password);
 }
 
+//navigation.navigate('Hello');
+     // setIsLoading(false);
 const onSubmitHandler = (event) => {
   event.preventDefault();
   setIsLoading(true);
-  fetch('https://jsonplaceholder.typicode.com/todos/1')
-     .then(response => response.json())
-     .then((data)=>{
+  axios.post('https://tutorfinderapi.herokuapp.com/api/register', {
+    emailId:"ksffsd6sdjjsy@dd.sd",
+    AccountType:"Student",
+    password:"Sdsdsdsd"
+})
+  .then(function (response) {
+    setIsLoading(false);
+    
+        if(typeof response.data.error !== "undefined"){
+          setAlert(true);
+          setAlertMessage("We are having trouble onboarding you, kindly double check your input, Make sure that you are using a unique email address and that you have filled all the fields with correct information");
+        }else{
+          navigation.navigate('Hello');
+        };
+    
 
-      
-      navigation.navigate('Hello');
-      setIsLoading(false);
-      //console.log(data.userId);
-     })
-  console.log({
-    'emailID':email,
-    'password':password
+    
+  
+  })
+  .catch(function (error) {
+    console.log(error);
   });
 }
+
+let AlertRender;
+if (alert){
+  AlertRender = <Alert w="100%" status="info" colorScheme="info">
+  <VStack space={2} flexShrink={1} w="100%">
+    <HStack
+      flexShrink={1}
+      space={2}
+      alignItems="center"
+      justifyContent="space-between"
+    >
+      <HStack flexShrink={1} space={2} alignItems="center">
+        <Alert.Icon />
+        <Text fontSize="md" fontWeight="medium" color="coolGray.800">
+          Kindly double check your entries!
+        </Text>
+      </HStack>
+      <IconButton
+        variant="unstyled"
+        icon={<CloseIcon size="3" color="coolGray.600" />}
+      />
+    </HStack>
+    <Box
+      pl="6"
+      _text={{
+        color: "coolGray.600",
+      }}
+    >
+     {AlertMessage}
+    </Box>
+  </VStack>
+</Alert>
+}else{
+  AlertRender = "";
+}
+
 
 
   return (
@@ -84,6 +135,9 @@ const onSubmitHandler = (event) => {
       >
           Get Started!
       </Heading>
+      
+   {AlertRender}
+      
 
       {isLoading ? <HStack space={2} alignItems="center">
       <Spinner size="lg" accessibilityLabel="Trying to sign you in!" />
