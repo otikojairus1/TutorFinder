@@ -10,6 +10,7 @@ import SignUpScreen from './screens/SignUp'
 import AccountScreen from './screens/Account'
 import TutorDashboad from './screens/TutorDashboard'
 import TutorAccount from './screens/TutorAccount';
+import TutorAppointment from './screens/TutorAppointment';
 import TutorConfirm from './screens/TutorConfirm';
 //const [isLoading, setIsLoading] = useState(true);
 const Stack2 = createNativeStackNavigator();
@@ -29,6 +30,7 @@ export default function App() {
                 <Stack2.Screen name="Account" component={AccountScreen}  options={{ headerShown: false,headerTitleAlign: "center" }}/>
                 <Stack2.Screen name="TutorAccount" component={TutorAccount}  options={{ headerShown: false,headerTitleAlign: "center" }}/>
                 <Stack2.Screen name="TutorConfirm" component={TutorConfirm}  options={{ headerShown: false,headerTitleAlign: "center" }}/>
+                <Stack2.Screen name="TutorAppointment" component={TutorAppointment}  options={{ headerTitleAlign: "center" }}/>
             </Stack2.Navigator>
         </NavigationContainer>
     </NativeBaseProvider>

@@ -14,7 +14,7 @@ import {
   NativeBaseProvider,
 } from "native-base"
 import axios from 'axios'
-export default function SignInScreen ({ navigation }){
+export default function SignInScreen ({ routes, navigation }){
 
   
 const [email, setEmail] = React.useState('');
@@ -50,18 +50,30 @@ const onSubmitHandler = (event) => {
   event.preventDefault();
   setIsLoading(true);
   axios.post('https://tutorfinderapi.herokuapp.com/api/register', {
-    emailId:"ksffsd6sdjjsy@dd.sd",
-    AccountType:"Student",
-    password:"Sdsdsdsd"
+    emailId:email,
+    AccountType:service,
+    password:password
 })
   .then(function (response) {
+    
     setIsLoading(false);
     
         if(typeof response.data.error !== "undefined"){
           setAlert(true);
           setAlertMessage("We are having trouble onboarding you, kindly double check your input, Make sure that you are using a unique email address and that you have filled all the fields with correct information");
         }else{
-          navigation.navigate('Hello');
+          console.log(response.data.data.emailId);
+
+          if (response.data.data.accountType == "Student"){
+            navigation.navigate('Hello',{
+              userEmailResponce:  response.data.data.emailId
+            });
+          }else{
+            navigation.navigate('TutorAppointment', {
+              userEmailResponce:  response.data.data.emailId
+            });
+          }
+         
         };
     
 

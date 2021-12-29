@@ -4,7 +4,8 @@ import TutorAppointment from './TutorAppointment';
 import TutorAccount from './TutorAccount'
 const Tab = createMaterialTopTabNavigator();
 
-export default function TutorDashboard({navigation}) {
+export default function TutorDashboard({route, navigation}) {
+  const { userEmailResponce } = route.params;
   return (
     <Tab.Navigator
     screenOptions={{

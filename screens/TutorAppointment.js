@@ -19,10 +19,11 @@ import {
 } from 'native-base';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { MaterialIcons, Ionicons, Entypo } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
+//import { NavigationContainer } from '@react-navigation/native';
 
-export default function TutorAppointment({navigation}) {
-  const [mode, setMode] = useState('Basic');
+export default function TutorAppointment({ route, navigation}) {
+  const { userEmailResponce } = route.params;
+  //const [mode, setMode] = useState('Basic');
 
   useEffect(() => {
     //using a fake rest api, will replace with the voters api when done
@@ -156,6 +157,7 @@ const renderHiddenItem = (data, rowMap) => (
 if (!isLoading){
 return (
     <Box bg="white" safeArea flex="1">
+      {userEmailResponce}
     <SwipeListView
       data={listData}
       renderItem={renderItem}
