@@ -22,7 +22,7 @@ import { MaterialIcons, Ionicons, Entypo } from '@expo/vector-icons';
 //import { NavigationContainer } from '@react-navigation/native';
 
 export default function TutorAppointment({ route, navigation}) {
-  const { userEmailResponce } = route.params;
+ // const { userEmailResponce } = route.params;
   //const [mode, setMode] = useState('Basic');
 
   useEffect(() => {
@@ -157,7 +157,7 @@ const renderHiddenItem = (data, rowMap) => (
 if (!isLoading){
 return (
     <Box bg="white" safeArea flex="1">
-      {userEmailResponce}
+     
     <SwipeListView
       data={listData}
       renderItem={renderItem}

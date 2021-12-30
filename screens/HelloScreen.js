@@ -20,6 +20,8 @@ export default function HelloScreen() {
       <Tab.Screen
         name="Tutors"
         component={Tutors}
+        //children={()=><Tutors propName={"sds"}/>}
+
         options={{
           tabBarLabel: 'Tutors',
           tabBarIcon: ({ color, size }) => (

@@ -5,21 +5,22 @@ import {
   Heading,
   VStack,
   FormControl,
-  Input,
+  Input, IconButton,
   Link,  Spinner,
-  Button,
+  Button,  Alert,CheckIcon,
   HStack, useToast,
-  Center,
+  Center,  CloseIcon,
   NativeBaseProvider,
 } from "native-base"
+import axios from 'axios'
 export default function SignInScreen ({ navigation }){
 
   
 const [email, setEmail] = React.useState('');
 
 const [password, setPassword] = React.useState('');
-
-
+let [alert, setAlert] = React.useState(false);
+let [AlertMessage, setAlertMessage] = React.useState("");
 const [isLoading, setIsLoading] = React.useState(false);
   // useEffect(() => {
   //   //using a fake rest api, will replace with the voters api when done
@@ -43,18 +44,73 @@ const onChangeEvent2 = (event) => {
 const onSubmitHandler = (event) => {
   event.preventDefault();
   setIsLoading(true);
-  fetch('https://jsonplaceholder.typicode.com/todos/1')
-     .then(response => response.json())
-     .then(()=>{
-
+  axios({
+    method: 'post',
+    url: 'https://tutorfinderapi.herokuapp.com/api/login',
+    data: {
+      "emailId":email,
+      "password":password
+  },
+    config: { headers: {'Content-Type': 'application/json' }}
+    })
+     .then(function (response){
+       //console.log(response.data);
+      if(typeof response.data.error !== "undefined"){
+        setIsLoading(false);
+        setAlert(true);
+        setAlertMessage("We are having trouble onboarding you, kindly double check your input, Make sure that you are using a unique email address and that you have filled all the fields with correct information");
+      }else{
+        setIsLoading(false);
+        if( response.data.data.accountType == "Student"){
+          navigation.navigate('Hello',{
+            "email": response.data.data.emailId
+          });
+        }else{
+          navigation.navigate('TutorAppointment');
+        }
+        
+     
       
-      navigation.navigate('My Dashboard');
-      setIsLoading(false);
-     })
-  console.log({
-    'emailID':email,
-    'password':password
-  });
+      }
+   
+     }).catch((err)=>console.log(err));
+ 
+}
+
+
+let AlertRender;
+if (alert){
+  AlertRender = <Alert w="100%" status="info" colorScheme="info">
+  <VStack space={2} flexShrink={1} w="100%">
+    <HStack
+      flexShrink={1}
+      space={2}
+      alignItems="center"
+      justifyContent="space-between"
+    >
+      <HStack flexShrink={1} space={2} alignItems="center">
+        <Alert.Icon />
+        <Text fontSize="md" fontWeight="medium" color="coolGray.800">
+          Kindly double check your entries!
+        </Text>
+      </HStack>
+      <IconButton
+        variant="unstyled"
+        icon={<CloseIcon size="3" color="coolGray.600" />}
+      />
+    </HStack>
+    <Box
+      pl="6"
+      _text={{
+        color: "coolGray.600",
+      }}
+    >
+     {AlertMessage}
+    </Box>
+  </VStack>
+</Alert>
+}else{
+  AlertRender = "";
 }
 
 
@@ -83,6 +139,8 @@ const onSubmitHandler = (event) => {
       >
         Sign in to continue!
       </Heading>
+
+      {AlertRender}
 
       {isLoading ? <HStack space={2} alignItems="center">
       <Spinner size="lg" accessibilityLabel="Trying to sign you in!" />

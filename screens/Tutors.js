@@ -19,72 +19,54 @@ import {
 } from 'native-base';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { MaterialIcons, Ionicons, Entypo } from '@expo/vector-icons';
-
-export default function TabScreen() {
+let data=[];
+export default function TabScreen({navigation}) {
   const [mode, setMode] = useState('Basic');
-
+ useEffect(()=>{
+  // data = [];
+ });
   return (
     <NativeBaseProvider>
       <Box bg="white" flex="1" safeAreaTop>
         <Heading p="4" pb="3" size="lg">
-          Today's Top Tutors Recommended for you!
+          Check out available Tutors
         </Heading>
-        <Basic />
+        <Basic nav={navigation}/>
       </Box>
     </NativeBaseProvider>
   );
 }
 
-function Basic() {
-    useEffect(() => {
-        //using a fake rest api, will replace with the voters api when done
-        fetch('https://jsonplaceholder.typicode.com/todos/1')
-        .then(response => response.json())
-        .then(setIsLoading(false))
-      });
-  const data = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      fullName: 'Afreen Khan',
-      timeStamp: '12:47 PM',
-      recentText: 'Whats your best study time?',
-      avatarUrl: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      fullName: 'Sujita Mathur',
-      timeStamp: '11:11 PM',
-      recentText: 'Short questions description?',
-      avatarUrl:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyEaZqT3fHeNrPGcnjLLX1v_W4mvBlgpwxnA&usqp=CAU',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      fullName: 'Anci Barroco',
-      timeStamp: '6:22 PM',
-      recentText: 'What do you think about me?',
-      avatarUrl: 'https://miro.medium.com/max/1400/0*0fClPmIScV5pTLoE.jpg',
-    },
-    {
-      id: '68694a0f-3da1-431f-bd56-142371e29d72',
-      fullName: 'Aniket Kumar',
-      timeStamp: '8:56 PM',
-      recentText: 'Do you prefer night classes?',
-      avatarUrl:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr01zI37DYuR8bMV5exWQBSw28C1v_71CAh8d7GP1mplcmTgQA6Q66Oo--QedAN1B4E1k&usqp=CAU',
-    },
-    {
-      id: '28694a0f-3da1-471f-bd96-142456e29d72',
-      fullName: 'Kiara',
-      timeStamp: '12:47 PM',
-      recentText: ' computer science grad?',
-      avatarUrl:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBwgu1A5zgPSvfE83nurkuzNEoXs9DMNr8Ww&usqp=CAU',
-    },
-  ];
 
+
+function Basic({nav}) {
+
+  
   const [listData, setListData] = useState(data);
   const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+      data = [];
+        //using a fake rest api, will replace with the voters api when done
+        fetch('https://tutorfinderapi.herokuapp.com/api/tutors')
+        .then(response => response.json())
+        .then(
+          function (response){
+           // console.log(response.Data[0]);
+            response.Data.forEach(element => {
+              
+              data.push(element);
+              setIsLoading(false);
+            });
+          }
+            );
+           
+            
+        } );
+      
+      
+ 
+console.log(data);
+ 
   const closeRow = (rowMap, rowKey) => {
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
@@ -109,23 +91,36 @@ function Basic() {
   const renderItem = ({ item, index }) => (
       
     <Box>
-      <Pressable onPress={() => console.log('You touched me')} bg="white">
+      <Pressable onPress={
+  ()=>{
+    nav.navigate('submit',
+    {
+      "email": item.emailId,
+     // accepted: item.accepted
+    });
+    
+  }
+
+
+      } bg="white">
         <Box
           pl="4"
           pr="5"
           py="2"
           >
+
+            
           <HStack alignItems="center" space={3}>
-            <Avatar size="48px" source={{ uri: item.avatarUrl }} />
+            <Avatar size="48px" source={{ uri: "https://www.computerhope.com/jargon/g/guest-user.jpg" }} />
             <VStack>
               <Text color="coolGray.800"  _dark={{ color: 'warmGray.50' }}  bold>
-                {item.fullName}
+                {item.emailId}
               </Text>
-              <Text color="coolGray.600" _dark={{ color: 'warmGray.200' }}>{item.recentText}</Text>
+              <Text color="coolGray.600" _dark={{ color: 'warmGray.200' }}>{item.accountType}</Text>
             </VStack>
             <Spacer />
             <Text fontSize="xs" color="coolGray.800"  _dark={{ color: 'warmGray.50' }} alignSelf="flex-start">
-              {item.timeStamp}
+              {item.created_at}
             </Text>
           </HStack>
         </Box>
@@ -189,7 +184,7 @@ function Basic() {
           previewOpenDelay={3000}
           onRowDidOpen={onRowDidOpen}
         />
-      </Box> 
+             </Box> 
       
       );
   }else{
