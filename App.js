@@ -14,6 +14,11 @@ import TutorAppointment from './screens/TutorAppointment';
 import TutorConfirm from './screens/TutorConfirm';
 import submit from './screens/submit';
 import success from './screens/success'
+import AddReview from './screens/AddReview'
+import Done from './screens/Done'
+import ReviewList from './screens/ReviewList'
+import Noreview from './screens/Noreview';
+import ReadReview from './screens/ReadReview'
 //const [isLoading, setIsLoading] = useState(true);
 const Stack2 = createNativeStackNavigator();
 
@@ -35,6 +40,11 @@ export default function App() {
                 <Stack2.Screen name="TutorAppointment" component={TutorAppointment}  options={{ headerTitleAlign: "center" }}/>
                 <Stack2.Screen name="submit" component={submit}  options={{ headerTitleAlign: "center" }}/>
                 <Stack2.Screen name="success" component={success}  options={{ headerTitleAlign: "center" }}/>
+                <Stack2.Screen name="Add Review" component={AddReview}  options={{ headerTitleAlign: "center" }}/>
+                <Stack2.Screen name="Done" component={Done}  options={{ headerTitleAlign: "center" }}/>
+                <Stack2.Screen name="ReviewList" component={ReviewList} options={{ headerTitleAlign: "center"}} />
+                <Stack2.Screen name="Noreview" component={Noreview} options={{ headerTitleAlign: "center"}} />
+                <Stack2.Screen name="ReadReview" component={ReadReview} options={{ headerTitleAlign: "center"}} />
             </Stack2.Navigator>
         </NavigationContainer>
     </NativeBaseProvider>

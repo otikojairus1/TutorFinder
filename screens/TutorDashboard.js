@@ -5,7 +5,7 @@ import TutorAccount from './TutorAccount'
 const Tab = createMaterialTopTabNavigator();
 
 export default function TutorDashboard({route, navigation}) {
-  const { userEmailResponce } = route.params;
+  const { emailid, id } = route.params;
   return (
     <Tab.Navigator
     screenOptions={{
@@ -14,8 +14,8 @@ export default function TutorDashboard({route, navigation}) {
       headerShadowVisible: false
     }}
     >
-      <Tab.Screen name="TutorAppointment" component={TutorAppointment} />
-      <Tab.Screen name="TutorAccount" component={TutorAccount} />
+      <Tab.Screen name="TutorAppointment" children={()=><TutorAppointment navigation={navigation}emailid={emailid}/>} />
+      <Tab.Screen name="TutorAccount" children={()=><TutorAccount navigation={navigation} id={id}emailid={emailid}/>} />
     </Tab.Navigator>
   );
 }

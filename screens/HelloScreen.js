@@ -29,7 +29,7 @@ export default function HelloScreen() {
           ),  tabBarBadge: 345,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Universities"
         component={Universities}
         options={{
@@ -39,8 +39,8 @@ export default function HelloScreen() {
           ),
           tabBarBadge: 23,
         }}
-      />
-      <Tab.Screen
+      /> */}
+      {/* <Tab.Screen
         name="Courses"
         component={Courses}
         options={{
@@ -49,7 +49,7 @@ export default function HelloScreen() {
             <MaterialCommunityIcons name="bookshelf" color={color} size={size} />
           ),  tabBarBadge: 23,
         }}
-      />
+      /> */}
 
 <Tab.Screen
         name="Account"

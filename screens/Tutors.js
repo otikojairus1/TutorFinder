@@ -96,7 +96,10 @@ console.log(data);
     nav.navigate('submit',
     {
       "email": item.emailId,
-     // accepted: item.accepted
+      "joined": item.created_at,
+      "fullnames":item.fullnames,
+      "location":item.location
+
     });
     
   }

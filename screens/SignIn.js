@@ -8,7 +8,7 @@ import {
   Input, IconButton,
   Link,  Spinner,
   Button,  Alert,CheckIcon,
-  HStack, useToast,
+  HStack, useToast, AlertDialog,
   Center,  CloseIcon,
   NativeBaseProvider,
 } from "native-base"
@@ -66,7 +66,10 @@ const onSubmitHandler = (event) => {
             "email": response.data.data.emailId
           });
         }else{
-          navigation.navigate('TutorAppointment');
+          navigation.navigate('My Dashboard', {
+            "emailid":response.data.data.emailId,
+            "id":response.data.data.id,
+          });
         }
         
      

@@ -20,10 +20,9 @@ import {
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { MaterialIcons, Ionicons, Entypo } from '@expo/vector-icons';
 let data=[];
-export default function TutorDashboad({navigation, route, emailid}) {
+export default function TabScreen({navigation, route}) {
   const [mode, setMode] = useState('Basic');
-  //const { emailid } = route.params;
- // let emailid = "test";
+  const { emailid } = route.params;
 useEffect(
 
   ()=>{console.log(emailid)}
@@ -33,7 +32,7 @@ useEffect(
     <NativeBaseProvider>
       <Box bg="white" flex="1" safeAreaTop>
         <Heading p="4" pb="3" size="lg">
-          These are what students have reviewed for {emailid}
+          These are the top reviews for {emailid}
         </Heading>
         <Basic email={emailid} nav={navigation}/>
       </Box>
@@ -51,7 +50,7 @@ function Basic({nav, email}) {
     useEffect(() => {
       data = [];
         //using a fake rest api, will replace with the voters api when done
-       fetch(`https://tutorfinderapi.herokuapp.com/api/reviews/${email}`)
+        fetch(`https://tutorfinderapi.herokuapp.com/api/reviews/${JSON.parse(email)}`)
         //fetch('https://tutorfinderapi.herokuapp.com/api/reviews/Tutor@tutorfinder.com')
         
         .then(response => response.json())

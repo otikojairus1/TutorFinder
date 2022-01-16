@@ -18,19 +18,25 @@ export default function SignInScreen ({ routes, navigation }){
 
   
 const [email, setEmail] = React.useState('');
-
-const [password, setPassword] = React.useState('');
+//const [countryName, setCountryName] = React.useState('');
+const [password, setPassword] = React.useState(['']);
 
 let [service, setService] = React.useState("")
 const [isLoading, setIsLoading] = React.useState(false);
 let [alert, setAlert] = React.useState(false);
 let [AlertMessage, setAlertMessage] = React.useState("");
-  // useEffect(() => {
-  //   //using a fake rest api, will replace with the voters api when done
-  //   fetch('https://jsonplaceholder.typicode.com/todos/1')
-  //   .then(response => response.json())
-  //   .then(setIsLoading(false))
-  // });
+//   React.useEffect(() => {
+//  axios.get('https://restcountries.com/v2/all')
+//  .then((res)=>{
+
+
+// res.data.forEach(element => {
+//   console.log(element.name);
+//    //setCountryName(element.name);
+//    //console.log(countryName);
+// });
+//  })
+//   });
 
     const toast = useToast()
 
@@ -167,6 +173,7 @@ if (alert){
           <FormControl.Label>Account Type</FormControl.Label>
 
         <VStack alignItems="center" space={4}>
+          
       <Select
         selectedValue={service}
         minWidth="270"
@@ -184,6 +191,8 @@ if (alert){
        
       </Select>
     </VStack>
+
+
 
     </FormControl>
 
