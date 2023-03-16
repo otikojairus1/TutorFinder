@@ -13,6 +13,7 @@ import {
   NativeBaseProvider,
 } from "native-base"
 import axios from 'axios'
+import { BASE_URI } from "../BASE_URI";
 export default function SignInScreen ({ navigation }){
 
   
@@ -46,7 +47,7 @@ const onSubmitHandler = (event) => {
   setIsLoading(true);
   axios({
     method: 'post',
-    url: 'https://tutorfinderapi.herokuapp.com/api/login',
+    url: BASE_URI+'/api/login',
     data: {
       "emailId":email,
       "password":password
