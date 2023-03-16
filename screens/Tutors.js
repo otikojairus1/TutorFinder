@@ -19,6 +19,7 @@ import {
 } from 'native-base';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { MaterialIcons, Ionicons, Entypo } from '@expo/vector-icons';
+import { BASE_URI } from '../BASE_URI';
 let data=[];
 export default function TabScreen({navigation}) {
   const [mode, setMode] = useState('Basic');
@@ -47,7 +48,7 @@ function Basic({nav}) {
     useEffect(() => {
       data = [];
         //using a fake rest api, will replace with the voters api when done
-        fetch('https://tutorfinderapi.herokuapp.com/api/tutors')
+        fetch(BASE_URI+'/api/tutors')
         .then(response => response.json())
         .then(
           function (response){
