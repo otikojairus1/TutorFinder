@@ -19,6 +19,7 @@ import {
 } from 'native-base';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { MaterialIcons, Ionicons, Entypo } from '@expo/vector-icons';
+import { BASE_URI } from '../BASE_URI';
 let data=[];
 export default function TabScreen({navigation, route}) {
   const [mode, setMode] = useState('Basic');
@@ -50,7 +51,7 @@ function Basic({nav, email}) {
     useEffect(() => {
       data = [];
         //using a fake rest api, will replace with the voters api when done
-        fetch(`https://tutorfinderapi.herokuapp.com/api/reviews/${JSON.parse(email)}`)
+        fetch(BASE_URI+`/api/reviews/${JSON.parse(email)}`)
         //fetch('https://tutorfinderapi.herokuapp.com/api/reviews/Tutor@tutorfinder.com')
         
         .then(response => response.json())
