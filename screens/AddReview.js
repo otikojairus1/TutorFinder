@@ -14,6 +14,7 @@ import {
     NativeBaseProvider,
   } from "native-base"
 import axios from 'axios';
+import { BASE_URI } from '../BASE_URI';
 export default function AddReview({ route, navigation }) {
     const { emailId, accepted,created_at } = route.params;
 const[message, setMessage] = React.useState('');
@@ -38,7 +39,7 @@ const onSubmitHandler = (event) => {
     });
     setLoading(true);
     
-      axios.post('https://tutorfinderapi.herokuapp.com/api/add/review', {
+      axios.post(BASE_URI+'/api/add/review', {
         reviewName:username,
         review:message,
         reviewTargetEmail:JSON.parse(emailId)
